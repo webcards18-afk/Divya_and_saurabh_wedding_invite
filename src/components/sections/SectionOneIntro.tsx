@@ -94,7 +94,8 @@ export function SectionOneIntro({ onOpen, onFinish }: SectionOneIntroProps) {
   return (
     <section
       id="home"
-      className="relative w-full h-[100dvh] min-h-[100dvh] bg-[#0d0407] flex items-center justify-center select-none overflow-hidden"
+      className="relative w-full h-[100svh] min-h-[100svh] bg-[#0d0407] flex items-center justify-center select-none overflow-hidden"
+      style={{ overflowAnchor: "none" }}
     >
       {/* Edge-to-edge mobile container: fills mobile screen maintaining original aspect ratio */}
       <div className="relative w-full h-full max-w-[480px] sm:max-w-[540px] flex items-center justify-center overflow-hidden bg-black">
@@ -108,7 +109,7 @@ export function SectionOneIntro({ onOpen, onFinish }: SectionOneIntroProps) {
           preload="auto"
           onTimeUpdate={handleTimeUpdate}
           onEnded={handleVideoEnded}
-          className="w-full h-full object-cover block"
+          className="w-full h-full object-cover block pointer-events-none"
         />
 
         {/* Tap to Open Button directly over 1-vid (without dark modal card) */}

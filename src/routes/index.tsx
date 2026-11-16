@@ -80,7 +80,7 @@ function Index() {
   const event6 = weddingData.events[4]; // 6-vid: Wedding Ceremony
 
   return (
-    <div className="relative w-full bg-[#0a0205] font-body text-[#f5ebd7] overflow-x-hidden selection:bg-[#d4af37]/30 selection:text-white">
+    <div className="relative w-full bg-[#0a0205] font-body text-[#f5ebd7] overflow-x-clip selection:bg-[#d4af37]/30 selection:text-white">
       {/* Background Music Player & Floating Music Controller (plays music.mp3 after tap, loops continuously) */}
       <BackgroundMusic hasStarted={hasStartedIntro} />
 

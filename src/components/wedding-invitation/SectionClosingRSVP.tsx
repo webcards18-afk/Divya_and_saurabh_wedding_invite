@@ -1,16 +1,46 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { weddingData } from "@/config/wedding";
-import { Phone, MessageCircle, Heart, Sparkles } from "lucide-react";
+import { Phone, MessageCircle, Heart, Sparkles, Loader2 } from "lucide-react";
 
 export function SectionClosingRSVP() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const hasCompletedOnceRef = useRef(false);
   const isIntersectingRef = useRef(false);
   const { closing } = weddingData;
 
+  const [shouldLoad, setShouldLoad] = useState(false);
+  const [isVideoReady, setIsVideoReady] = useState(false);
+
+  // 1. Lazy loading observer: load 7-vid only when within 800px of RSVP section
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    if (typeof IntersectionObserver === "undefined") {
+      setShouldLoad(true);
+      return;
+    }
+
+    const loadObserver = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setShouldLoad(true);
+          loadObserver.disconnect();
+        }
+      },
+      { rootMargin: "800px 0px" }
+    );
+
+    loadObserver.observe(container);
+    return () => loadObserver.disconnect();
+  }, []);
+
+  // 2. Playback observer: play once 50% in view
   useEffect(() => {
     const vid = videoRef.current;
-    if (!vid) return;
+    const container = containerRef.current;
+    if (!vid || !container || !shouldLoad) return;
 
     vid.defaultMuted = true;
     vid.muted = true;
@@ -19,7 +49,7 @@ export function SectionClosingRSVP() {
     vid.setAttribute("webkit-playsinline", "true");
     vid.setAttribute("x5-playsinline", "true");
 
-    const observer = new IntersectionObserver(
+    const playObserver = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
         if (entry?.isIntersecting) {
@@ -35,13 +65,13 @@ export function SectionClosingRSVP() {
           }
         }
       },
-      { threshold: 0.25, rootMargin: "100px 0px" }
+      { threshold: 0.5 }
     );
 
-    observer.observe(vid);
+    playObserver.observe(container);
 
     return () => {
-      observer.disconnect();
+      playObserver.disconnect();
       if (vid && !vid.paused) {
         try {
           vid.pause();
@@ -50,7 +80,7 @@ export function SectionClosingRSVP() {
         }
       }
     };
-  }, []);
+  }, [shouldLoad]);
 
   const handleVideoEnded = () => {
     hasCompletedOnceRef.current = true;
@@ -72,22 +102,39 @@ export function SectionClosingRSVP() {
   return (
     <section
       id="rsvp"
-      className="relative w-full min-h-[100dvh] bg-[#070e24] flex flex-col items-center justify-between select-none overflow-hidden"
+      ref={containerRef}
+      className="relative w-full min-h-[100svh] bg-[#070e24] flex flex-col items-center justify-between select-none overflow-hidden"
+      style={{ overflowAnchor: "none" }}
     >
-      {/* 7-vid.mp4 Background Player — plays once, strictly muted */}
-      <div className="relative w-full h-[100dvh] min-h-[100dvh] max-w-[480px] sm:max-w-[540px] flex items-center justify-center overflow-hidden bg-black shadow-2xl">
-        <video
-          ref={videoRef}
-          src={closing.videoSrc}
-          muted
-          playsInline
-          webkit-playsinline="true"
-          x5-playsinline="true"
-          preload="metadata"
-          onEnded={handleVideoEnded}
-          onTimeUpdate={handleTimeUpdate}
-          className="w-full h-full object-cover block mx-auto"
-        />
+      {/* 7-vid.mp4 Background Player — plays once, strictly muted, lazy loaded */}
+      <div className="relative w-full h-[100svh] min-h-[100svh] max-w-[480px] sm:max-w-[540px] flex items-center justify-center overflow-hidden bg-black shadow-2xl">
+        {!isVideoReady && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#070e24] z-10">
+            <Loader2 className="w-8 h-8 text-[#d4af37] animate-spin opacity-60 mb-2" />
+            <span className="font-serif text-xs tracking-widest text-[#ffd700]/70 uppercase">
+              Loading Celebrations...
+            </span>
+          </div>
+        )}
+
+        {shouldLoad && (
+          <video
+            ref={videoRef}
+            src={closing.videoSrc}
+            muted
+            playsInline
+            webkit-playsinline="true"
+            x5-playsinline="true"
+            preload="auto"
+            onLoadedData={() => setIsVideoReady(true)}
+            onCanPlay={() => setIsVideoReady(true)}
+            onEnded={handleVideoEnded}
+            onTimeUpdate={handleTimeUpdate}
+            className={`w-full h-full object-cover block mx-auto pointer-events-none transition-opacity duration-500 ${
+              isVideoReady ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        )}
 
         {/* Bottom Floating Interactive RSVP Card */}
         <div className="absolute bottom-5 inset-x-3 sm:inset-x-5 z-20 flex flex-col items-center gap-2 pointer-events-auto">

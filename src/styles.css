@@ -51,6 +51,7 @@
   --color-ink: var(--ink);
 
   --font-display: "Cormorant Garamond", "Times New Roman", serif;
+  --font-cinzel: "Cinzel", "Times New Roman", serif;
   --font-script: "Great Vibes", cursive;
   --font-body: "Jost", ui-sans-serif, system-ui, sans-serif;
 }
@@ -486,5 +487,65 @@
 
 .bubble-particle {
   animation: champagne-bubble 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes music-bar {
+  0%, 100% {
+    height: 4px;
+  }
+  50% {
+    height: 16px;
+  }
+}
+
+.animate-music-bar-1 {
+  animation: music-bar 0.9s ease-in-out infinite;
+}
+
+.animate-music-bar-2 {
+  animation: music-bar 1.2s ease-in-out 0.2s infinite;
+}
+
+.animate-music-bar-3 {
+  animation: music-bar 0.8s ease-in-out 0.4s infinite;
+}
+
+/* ── Rose Petals Shower Animation across Whole Website ── */
+@keyframes shower-fall {
+  0% {
+    transform: translateY(-60px) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.95;
+  }
+  85% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(105vh) translateX(var(--drift)) rotate(var(--spin));
+    opacity: 0;
+  }
+}
+
+@keyframes petal-flutter {
+  0%, 100% {
+    transform: rotateZ(0deg) scale(1);
+  }
+  50% {
+    transform: rotateZ(28deg) scale(1.08);
+  }
+}
+
+.petal-shower-item {
+  position: absolute;
+  top: 0;
+  pointer-events: none;
+  animation: shower-fall var(--fall-duration) var(--fall-delay) cubic-bezier(0.3, 0.45, 0.45, 0.95) infinite;
+  will-change: transform, opacity;
+}
+
+.petal-flutter-inner {
+  animation: petal-flutter var(--flutter-duration) ease-in-out infinite alternate;
 }
 

@@ -1,99 +1,148 @@
-import poster1 from "@/assets/poster-1.jpg.asset.json";
-import poster3 from "@/assets/poster-3.jpg.asset.json";
-import poster4 from "@/assets/poster-4.jpg.asset.json";
-import poster5 from "@/assets/poster-5.jpg.asset.json";
-import poster6 from "@/assets/poster-6.jpg.asset.json";
+/**
+ * Divya & Saurabh — Royal Indian Wedding Invitation Configuration
+ * Extracted accurately from client invitation references & video assets.
+ */
 
-/** ── EDIT EVERYTHING ABOUT THE BIRTHDAY & INVITATION HERE ─────────────────────────── */
-
-export const birthdayData = {
-  // Birthday Person Details
-  name: "Laxman",
-  celebrantTitle: "The Bossman Laxman's Big 50 Bash",
-  age: 50,
-  ageHeading: "Aged to Perfection",
-  tagline: "Something Legendary Is Brewing",
-
-  // Main Invitation
-  invitationHeading: "You're Invited",
-  invitationSubheading: "To The Bossman Laxman's",
-  invitationHighlight: "Big 50 Bash",
-
-  // Party Details
-  event: "Big 50 Birthday Bash",
-  heading: "Let the Birthday Celebration Begin",
-  subheading: "Let the Madness Begin",
-  date: "Friday, 20 November 2026",
-  displayDate: "FRIDAY, 20TH NOVEMBER",
-  isoDate: "2026-11-20T19:30:00",
-  time: "7:30 PM onwards",
-  timeLabel: "Party O'Clock!",
-
-  // Venue & Location
-  venue: "Sindbad Ballroom, Crowne Plaza Qurum",
-  venueLabel: "The Hotspot!",
-  venueName: "Sindbad Ballroom",
-  hotelName: "Crowne Plaza Qurum",
-  location: "Crowne Plaza Qurum, Muscat, Oman",
-  mapUrl: "https://maps.app.goo.gl/gvFWQ2ZqpVk4jusr9?g_st=iw",
-  directionsUrl: "https://maps.app.goo.gl/gvFWQ2ZqpVk4jusr9?g_st=iw",
-  // Standard embeddable map location for Crowne Plaza Muscat / Qurum
-  mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.7801828789313!2d58.49007327606774!3d23.612239478763527!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e91f090b3967819%3A0xc47b4d1c5d9e5b9f!2sCrowne%20Plaza%20Muscat%2C%20an%20IHG%20Hotel!5e0!3m2!1sen!2som!4v1714500000000!5m2!1sen!2som",
-
-  // Dress Code
-  dressCodeLabel: "Bring Your Bling!",
-  dressCode: "Black / Gold / Champagne",
-  dressCodeMessage: "Let's party like never before in style!",
-
-  // Contact Details
-  contactPhone: "+968 96238033",
-  contactPhoneFormatted: "+968 9623 8033",
-  whatsappNumber: "96896238033",
-
-  // Music
-  musicUrl: "/music.mp3",
-};
-
-/** Backward compatibility alias */
-export const weddingDate = birthdayData.isoDate;
 export const weddingData = {
-  groom: "Laxman",
-  bride: "Celebration",
-  groomParents: "",
-  brideParents: "",
-  weddingDate: birthdayData.isoDate,
-  displayDate: birthdayData.displayDate,
-  venue: birthdayData.venue,
-  location: birthdayData.location,
-  mapUrl: birthdayData.mapUrl,
-  musicUrl: birthdayData.musicUrl,
+  // Couple Details
+  bride: "Divya",
+  groom: "Saurabh",
+  brideFull: "Divya Arora",
+  groomFull: "Saurabh Banga",
+  
+  // Parents & Family
+  brideParents: "Mrs. Sangeeta Arora & Mr. Hirdesh Arora",
+  brideGrandparents: "Late Smt. Amritbai & Late Shri Ramdhan",
+  groomParents: "Smt. Kamal Banga & Late Shri Krishan Kumar Banga",
+  
+  // Main Wedding Ceremony Date & Time (for Countdown)
+  weddingDate: "2026-12-11T19:00:00+05:30",
+  displayWeddingDate: "Friday, 11th December 2026",
+  weddingTime: "7:00 PM Onwards Followed by Dinner",
+  
+  // Main Wedding Venue
+  mainVenue: "Imperial Garden by Tivoli",
+  mainAddress: "GT Karnal Road, Alipur Village, New Delhi – 110036",
+  mainMapUrl: "https://www.google.com/maps/search/?api=1&query=Imperial+Garden+by+Tivoli+GT+Karnal+Road+Alipur+New+Delhi+110036",
+
+  // Background Music
+  musicUrl: "/music.mp3",
+
+  // All Sequential Wedding Events (matching 2-vid through 6-vid)
   events: [
     {
-      id: "bash",
-      title: birthdayData.event,
-      date: birthdayData.date,
-      time: birthdayData.time,
-      note: birthdayData.dressCodeMessage,
-      tone: "gold" as const,
+      id: "sukhmani",
+      videoIndex: 2,
+      videoSrc: "/2-vid.mp4",
+      title: "Sukhmani Sahib Path",
+      date: "Sunday, 6th December 2026",
+      shortDate: "6th December 2026",
+      time: "11:30 AM Onwards",
+      note: "Followed by Lunch",
+      venueName: "Shyam Niwas",
+      venueAddress: "B1/257, UGF, Paschim Vihar, New Delhi – 110063",
+      mapUrl: "https://www.google.com/maps/search/?api=1&query=Shyam+Niwas+B1%2F257+Paschim+Vihar+New+Delhi+110063",
+      badgeColor: "from-amber-500/20 to-amber-700/30",
+    },
+    {
+      id: "sagan",
+      videoIndex: 3,
+      videoSrc: "/3-vid.mp4",
+      title: "Sagan Ceremony",
+      date: "Wednesday, 9th December 2026",
+      shortDate: "9th December 2026",
+      time: "7:30 PM Onwards",
+      note: "An evening of royal traditions & celebrations",
+      venueName: "The Mahanta Boutique Hotel & Resort",
+      venueAddress: "Opposite PNB Zonal Branch, Partapur, Meerut",
+      mapUrl: "https://www.google.com/maps/search/?api=1&query=The+Mahanta+Boutique+Hotel+%26+Resort+Partapur+Meerut",
+      badgeColor: "from-yellow-500/20 to-amber-600/30",
+    },
+    {
+      id: "cocktail",
+      videoIndex: 4,
+      videoSrc: "/4-vid.mp4",
+      title: "Cocktail & Mehndi",
+      date: "Thursday, 10th December 2026",
+      shortDate: "10th December 2026",
+      time: "5:30 PM Onwards",
+      note: "Music, henna & celebratory toasts",
+      venueName: "Wedding Opera",
+      venueAddress: "B-9, Ring Road, Dr. Lohia Industrial Area, Tri Nagar, Delhi – 110035",
+      mapUrl: "https://www.google.com/maps/search/?api=1&query=Wedding+Opera+B-9+Ring+Road+Dr+Lohia+Industrial+Area+Tri+Nagar+Delhi+110035",
+      badgeColor: "from-emerald-600/20 to-teal-800/30",
+    },
+    {
+      id: "haldi",
+      videoIndex: 5,
+      videoSrc: "/5-vid.mp4",
+      title: "Haldi & Chooda Ceremony",
+      date: "Friday, 11th December 2026",
+      shortDate: "11th December 2026",
+      time: "9:30 AM Onwards",
+      note: "Auspicious turmeric blessings & bridal chooda",
+      venueName: "Shyam Niwas",
+      venueAddress: "B1/257, UGF, Paschim Vihar, New Delhi – 110063",
+      mapUrl: "https://www.google.com/maps/search/?api=1&query=Shyam+Niwas+B1%2F257+Paschim+Vihar+New+Delhi+110063",
+      badgeColor: "from-yellow-400/20 to-amber-500/30",
+    },
+    {
+      id: "wedding",
+      videoIndex: 6,
+      videoSrc: "/6-vid.mp4",
+      title: "Wedding Ceremony",
+      date: "Friday, 11th December 2026",
+      shortDate: "11th December 2026",
+      time: "7:00 PM Onwards",
+      note: "Followed by Dinner",
+      venueName: "Imperial Garden by Tivoli",
+      venueAddress: "GT Karnal Road, Alipur Village, New Delhi – 110036",
+      mapUrl: "https://www.google.com/maps/search/?api=1&query=Imperial+Garden+by+Tivoli+GT+Karnal+Road+Alipur+New+Delhi+110036",
+      badgeColor: "from-rose-600/20 to-red-800/30",
     },
   ],
+
+  // Blessings & RSVP (matching 7-vid)
+  closing: {
+    videoIndex: 7,
+    videoSrc: "/7-vid.mp4",
+    nieceMessage: "My Bua's big day! Come celebrate with us!",
+    nieceAuthor: "Presha",
+    rsvpSide: "Dadke & Nanke",
+    contacts: [
+      {
+        name: "Richa & Vijay Arora",
+        phone: "+91 97110 50005",
+        rawPhone: "9711050005",
+      },
+      {
+        name: "Gaurav Arora",
+        phone: "+91 97580 48145",
+        rawPhone: "9758048145",
+      },
+    ],
+  },
 };
 
-export type Clip = { src: string; poster: string } | null;
+/** Navigation anchors */
+export const navSections = [
+  { id: "home", label: "Opening" },
+  { id: "sukhmani", label: "Path" },
+  { id: "countdown", label: "Countdown" },
+  { id: "sagan", label: "Sagan" },
+  { id: "cocktail", label: "Cocktail" },
+  { id: "haldi", label: "Haldi" },
+  { id: "wedding", label: "Wedding" },
+  { id: "rsvp", label: "RSVP" },
+];
 
-export const clips: Record<"one" | "two" | "three" | "four" | "five" | "six", Clip> = {
+/** Backward compatibility references */
+export const clips = {
   one: { src: "/1-vid.mp4", poster: "" },
   two: { src: "/2-vid.mp4", poster: "" },
   three: { src: "/3-vid.mp4", poster: "" },
   four: { src: "/4-vid.mp4", poster: "" },
   five: { src: "/5-vid.mp4", poster: "" },
   six: { src: "/6-vid.mp4", poster: "" },
+  seven: { src: "/7-vid.mp4", poster: "" },
 };
-
-export const navSections = [
-  { id: "poster", label: "Celebration" },
-  { id: "invitation", label: "Invitation" },
-  { id: "details", label: "Party Details" },
-  { id: "venue", label: "Venue & Map" },
-  { id: "contact", label: "Contact" },
-];

@@ -1,116 +1,187 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { SectionOneIntro } from "@/components/sections/SectionOneIntro";
-import { SectionAgePoster } from "@/components/birthday/SectionAgePoster";
-import { SectionMainInvitation } from "@/components/birthday/SectionMainInvitation";
-import { SectionCountdownTimer } from "@/components/birthday/SectionCountdownTimer";
-import { SectionPartyDetails } from "@/components/birthday/SectionPartyDetails";
-import { SectionVenueMap } from "@/components/birthday/SectionVenueMap";
-import { SectionContactButtons } from "@/components/birthday/SectionContactButtons";
-import { birthdayData } from "@/config/wedding";
+import { WeddingEventVideoSection } from "@/components/wedding-invitation/WeddingEventVideoSection";
+import { SectionWeddingCountdown } from "@/components/wedding-invitation/SectionWeddingCountdown";
+import { SectionClosingRSVP } from "@/components/wedding-invitation/SectionClosingRSVP";
+import { BackgroundMusic } from "@/components/wedding-invitation/BackgroundMusic";
+import { RosePetalsShower } from "@/components/wedding-invitation/RosePetalsShower";
+import { Navigation } from "@/components/Navigation";
+import { weddingData } from "@/config/wedding";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
 function Index() {
-  const [hasOpenedIntro, setHasOpenedIntro] = useState(false);
-  const [isIntroDismissed, setIsIntroDismissed] = useState(false);
-  const [hasScratched, setHasScratched] = useState(false);
+  const [hasStartedIntro, setHasStartedIntro] = useState(false);
+  const [hasFinishedIntro, setHasFinishedIntro] = useState(false);
 
-  // On page load or refresh, always reset scroll to the very top (0, 0)
+  // Guarantee that on every fresh load or page refresh, it starts strictly from 0 (1-vid and Tap to Open)
   useEffect(() => {
+    // 1. Disable browser's automatic scroll restoration
+    if (typeof window !== "undefined" && "scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+
+    // 2. Clear any lingering URL hashes (e.g. #countdown, #rsvp) that cause auto-jump
+    if (typeof window !== "undefined" && window.location.hash) {
+      window.history.replaceState(null, "", window.location.pathname);
+    }
+
+    // 3. Immediately reset scroll position to the top
     window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
+
+    // Secondary reset after render to overcome any browser race conditions
+    const rafId = requestAnimationFrame(() => {
+      window.scrollTo(0, 0);
+    });
+
+    const onBeforeUnload = () => {
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener("beforeunload", onBeforeUnload);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      window.removeEventListener("beforeunload", onBeforeUnload);
+    };
   }, []);
 
-  // Control body scrolling:
-  // 1. Until "Tap to Open Invitation" is clicked: scroll is locked on Section 1
-  // 2. Until scratch card is revealed: user cannot scroll down past Section 2
+  // Strictly lock scrolling from page load until 1-vid finishes playing!
+  // User cannot scroll past 1-vid until they tap "Tap to Open" and 1-vid finishes.
   useEffect(() => {
-    if (!hasOpenedIntro) {
+    if (!hasFinishedIntro) {
       document.body.style.overflow = "hidden";
       document.documentElement.style.overflow = "hidden";
-    } else if (!hasScratched) {
-      // While on Section 2 waiting for scratch, keep scroll contained
-      document.body.style.overflow = "hidden";
-      document.documentElement.style.overflow = "hidden";
+      document.body.style.touchAction = "none";
+      window.scrollTo(0, 0);
     } else {
-      // Once scratched, completely unlock scrolling for the full celebration page
       document.body.style.overflow = "";
       document.documentElement.style.overflow = "";
+      document.body.style.touchAction = "";
     }
 
     return () => {
       document.body.style.overflow = "";
       document.documentElement.style.overflow = "";
+      document.body.style.touchAction = "";
     };
-  }, [hasOpenedIntro, hasScratched]);
+  }, [hasFinishedIntro]);
 
-  // When Video 1 ends: transition smoothly to Section 2 and completely dismiss Video 1
   const handleVideoOneFinish = () => {
-    setTimeout(() => {
-      setIsIntroDismissed(true);
-      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-    }, 600);
+    setHasFinishedIntro(true);
   };
 
-  const handleCardScratched = () => {
-    setHasScratched(true);
-    document.body.style.overflow = "";
-    document.documentElement.style.overflow = "";
-  };
+  const event2 = weddingData.events[0]; // 2-vid: Sukhmani Sahib Path
+  const event3 = weddingData.events[1]; // 3-vid: Sagan Ceremony
+  const event4 = weddingData.events[2]; // 4-vid: Cocktail & Mehndi
+  const event5 = weddingData.events[3]; // 5-vid: Haldi & Chooda Ceremony
+  const event6 = weddingData.events[4]; // 6-vid: Wedding Ceremony
 
   return (
-    <div className="relative w-full bg-[#120702] font-body text-[#f5ebd7] overflow-x-hidden selection:bg-[#d4a33c]/30 selection:text-white">
+    <div className="relative w-full bg-[#0a0205] font-body text-[#f5ebd7] overflow-x-hidden selection:bg-[#d4af37]/30 selection:text-white">
+      {/* Background Music Player & Floating Music Controller (plays music.mp3 after tap, loops continuously) */}
+      <BackgroundMusic hasStarted={hasStartedIntro} />
+
+      {/* Rose Petals Showering Gracefully Across Entire Website — subtle, elegant quantity */}
+      <RosePetalsShower active={hasFinishedIntro} count={16} />
+
+      {/* Floating Section Navigation */}
+      <Navigation />
+
       <main className="w-full flex flex-col">
-        {/* Intro Cinematic Video 1 with "Tap to Open Invitation" — disappears after playing */}
-        {!isIntroDismissed && (
-          <SectionOneIntro
-            onOpen={() => setHasOpenedIntro(true)}
-            onFinish={handleVideoOneFinish}
-            isDismissed={isIntroDismissed}
+        {/* 1. Website Opening – 1-vid with "Tap to Open Invitation" (strictly muted, plays once, never disappears, with Scroll Down prompt) */}
+        <SectionOneIntro
+          onOpen={() => setHasStartedIntro(true)}
+          onFinish={handleVideoOneFinish}
+        />
+
+        {/* 2. Second Section – 2-vid: Sukhmani Sahib Path with Map Button (strictly muted, plays once) */}
+        {event2 && (
+          <WeddingEventVideoSection
+            id={event2.id}
+            videoSrc={event2.videoSrc}
+            title={event2.title}
+            date={event2.date}
+            time={event2.time}
+            venueName={event2.venueName}
+            venueAddress={event2.venueAddress}
+            mapUrl={event2.mapUrl}
+            note={event2.note}
+            badgeColor={event2.badgeColor}
           />
         )}
 
-        {/* Section 1: Birthday Age Poster with Golden Scratch Card */}
-        <SectionAgePoster onScratched={handleCardScratched} />
+        {/* 3. Countdown Section (Immediately below 2-vid) */}
+        <SectionWeddingCountdown />
 
-        {/* All subsequent sections are mounted and revealed ONLY once the card is scratched */}
-        {hasScratched && (
-          <div className="w-full flex flex-col animate-fade-in">
-            {/* Section 2: Main Birthday Invitation (Video 3 — stops 2s before end) */}
-            <SectionMainInvitation />
-
-            {/* Section 2.5: Countdown Timer */}
-            <SectionCountdownTimer />
-
-            {/* Section 3: Party Details & Dress Code (Video 4) */}
-            <SectionPartyDetails />
-
-            {/* Section 4: Venue Map & Navigation Directions */}
-            <SectionVenueMap />
-
-            {/* Section 5: Contact Buttons (Call & WhatsApp) */}
-            <SectionContactButtons />
-
-            {/* Section 6: Footer */}
-            <footer className="relative w-full py-12 px-4 bg-[#0a0401] border-t border-[#d4a33c]/20 flex flex-col items-center justify-center text-center">
-              <p className="font-display text-lg sm:text-xl text-[#fce09b] font-medium tracking-wide mb-1">
-                Honoring 50 Years of Excellence
-              </p>
-              <p className="font-body text-xs sm:text-sm text-[#e8c07d]/70 tracking-widest uppercase mb-6">
-                {birthdayData.celebrantTitle}
-              </p>
-
-              <div className="w-16 h-[1px] bg-[#d4a33c]/30 mb-6" />
-
-              {/* Creator credit */}
-              <p className="text-xs text-[#e8c07d]/60 font-medium tracking-wider">
-                Created by @prashantharts
-              </p>
-            </footer>
-          </div>
+        {/* 4. Third Section – 3-vid: Sagan Ceremony with Map Button (strictly muted, plays once) */}
+        {event3 && (
+          <WeddingEventVideoSection
+            id={event3.id}
+            videoSrc={event3.videoSrc}
+            title={event3.title}
+            date={event3.date}
+            time={event3.time}
+            venueName={event3.venueName}
+            venueAddress={event3.venueAddress}
+            mapUrl={event3.mapUrl}
+            note={event3.note}
+            badgeColor={event3.badgeColor}
+          />
         )}
+
+        {/* 5. Fourth Section – 4-vid: Cocktail & Mehndi with Map Button (strictly muted, plays once) */}
+        {event4 && (
+          <WeddingEventVideoSection
+            id={event4.id}
+            videoSrc={event4.videoSrc}
+            title={event4.title}
+            date={event4.date}
+            time={event4.time}
+            venueName={event4.venueName}
+            venueAddress={event4.venueAddress}
+            mapUrl={event4.mapUrl}
+            note={event4.note}
+            badgeColor={event4.badgeColor}
+          />
+        )}
+
+        {/* 6. Fifth Section – 5-vid: Haldi & Chooda Ceremony with Map Button (strictly muted, plays once) */}
+        {event5 && (
+          <WeddingEventVideoSection
+            id={event5.id}
+            videoSrc={event5.videoSrc}
+            title={event5.title}
+            date={event5.date}
+            time={event5.time}
+            venueName={event5.venueName}
+            venueAddress={event5.venueAddress}
+            mapUrl={event5.mapUrl}
+            note={event5.note}
+            badgeColor={event5.badgeColor}
+          />
+        )}
+
+        {/* 7. Sixth Section – 6-vid: Wedding Ceremony with Map Button (strictly muted, plays once) */}
+        {event6 && (
+          <WeddingEventVideoSection
+            id={event6.id}
+            videoSrc={event6.videoSrc}
+            title={event6.title}
+            date={event6.date}
+            time={event6.time}
+            venueName={event6.venueName}
+            venueAddress={event6.venueAddress}
+            mapUrl={event6.mapUrl}
+            note={event6.note}
+            badgeColor={event6.badgeColor}
+          />
+        )}
+
+        {/* 8. Seventh Section – 7-vid: Presha's Blessing, Dadke & Nanke RSVP, Call & WhatsApp (strictly muted, plays once) */}
+        <SectionClosingRSVP />
       </main>
     </div>
   );

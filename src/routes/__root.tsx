@@ -76,15 +76,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Birthday Party Invitation" },
-      { name: "description", content: "A luxury digital birthday party invitation" },
-      { name: "author", content: "Prashantharts_sample" },
-      { property: "og:title", content: "Birthday Party Invitation" },
-      { property: "og:description", content: "A luxury digital birthday party invitation" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" },
+      { title: "Wedding Invitation | Divya & Saurabh" },
+      { name: "description", content: "Celebrate the royal wedding ceremony and festivities of Divya & Saurabh." },
+      { name: "author", content: "Prashantharts" },
+      { property: "og:title", content: "Wedding Invitation | Divya & Saurabh" },
+      { property: "og:description", content: "Celebrate the royal wedding ceremony and festivities of Divya & Saurabh." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Prashantharts_sample" },
+      { name: "twitter:title", content: "Wedding Invitation | Divya & Saurabh" },
+      { name: "twitter:description", content: "Celebrate the royal wedding ceremony and festivities of Divya & Saurabh." },
     ],
     links: [
       {
@@ -98,15 +99,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Great+Vibes&family=Jost:wght@300;400;500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Jost:wght@300;400;500;600;700&display=swap",
       },
       {
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/image.jpeg", type: "image/jpeg" },
-      { rel: "shortcut icon", href: "/image.jpeg", type: "image/jpeg" },
-      { rel: "apple-touch-icon", href: "/image.jpeg" },
     ],
   }),
   shellComponent: RootShell,

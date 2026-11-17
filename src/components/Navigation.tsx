@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import { navSections } from "@/config/wedding";
 
-export function Navigation() {
+interface NavigationProps {
+  hasFinishedIntro?: boolean;
+}
+
+export function Navigation({ hasFinishedIntro = true }: NavigationProps) {
   const [activeSection, setActiveSection] = useState("home");
   const [isOpen, setIsOpen] = useState(false);
 
@@ -29,6 +33,11 @@ export function Navigation() {
       setIsOpen(false);
     }
   };
+
+  // Strictly remove navigation toggle and menu from 1-vid
+  const isVisible = Boolean(hasFinishedIntro && activeSection !== "home");
+
+  if (!isVisible) return null;
 
   return (
     <>

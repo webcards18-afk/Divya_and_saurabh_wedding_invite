@@ -114,9 +114,8 @@ export function SectionOneIntro({ onOpen, onFinish }: SectionOneIntroProps) {
 
         {/* Tap to Open Button directly over 1-vid (without dark modal card) */}
         <div
-          className={`absolute inset-0 flex items-center justify-center px-6 z-20 transition-all duration-700 ${
-            hasStarted ? "opacity-0 scale-95 pointer-events-none" : "opacity-100 scale-100 pointer-events-auto"
-          }`}
+          className={`absolute inset-0 flex items-center justify-center px-6 z-20 transition-all duration-700 ${hasStarted ? "opacity-0 scale-95 pointer-events-none" : "opacity-100 scale-100 pointer-events-auto"
+            }`}
         >
           {/* Tap to Open Button in Warm Sandstone with Rose Petal Pink Letters */}
           <button

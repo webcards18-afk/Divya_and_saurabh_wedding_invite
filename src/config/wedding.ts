@@ -23,7 +23,7 @@ export const weddingData = {
   // Main Wedding Venue
   mainVenue: "Imperial Garden by Tivoli",
   mainAddress: "GT Karnal Road, Alipur Village, New Delhi – 110036",
-  mainMapUrl: "https://www.google.com/maps/search/?api=1&query=Imperial+Garden+by+Tivoli+GT+Karnal+Road+Alipur+New+Delhi+110036",
+  mainMapUrl: "https://share.google/1WU8JU5LDiNQc5wuv",
 
   // Background Music
   musicUrl: "/music.mp3",
@@ -69,7 +69,7 @@ export const weddingData = {
       note: "Music, henna & celebratory toasts",
       venueName: "Wedding Opera",
       venueAddress: "B-9, Ring Road, Dr. Lohia Industrial Area, Tri Nagar, Delhi – 110035",
-      mapUrl: "https://www.google.com/maps/search/?api=1&query=Wedding+Opera+B-9+Ring+Road+Dr+Lohia+Industrial+Area+Tri+Nagar+Delhi+110035",
+      mapUrl: "https://share.google/I8qk2mB3yIRqEGfev",
       badgeColor: "from-emerald-600/20 to-teal-800/30",
     },
     {
@@ -83,7 +83,7 @@ export const weddingData = {
       note: "Auspicious turmeric blessings & bridal chooda",
       venueName: "Shyam Niwas",
       venueAddress: "B1/257, UGF, Paschim Vihar, New Delhi – 110063",
-      mapUrl: "https://www.google.com/maps/search/?api=1&query=Shyam+Niwas+B1%2F257+Paschim+Vihar+New+Delhi+110063",
+      mapUrl: "https://maps.app.goo.gl/VpsX7qr2E8KNYCQZ7?g_st=ipc",
       badgeColor: "from-yellow-400/20 to-amber-500/30",
     },
     {
@@ -97,7 +97,7 @@ export const weddingData = {
       note: "Followed by Dinner",
       venueName: "Imperial Garden by Tivoli",
       venueAddress: "GT Karnal Road, Alipur Village, New Delhi – 110036",
-      mapUrl: "https://www.google.com/maps/search/?api=1&query=Imperial+Garden+by+Tivoli+GT+Karnal+Road+Alipur+New+Delhi+110036",
+      mapUrl: "https://share.google/1WU8JU5LDiNQc5wuv",
       badgeColor: "from-rose-600/20 to-red-800/30",
     },
   ],
@@ -111,7 +111,7 @@ export const weddingData = {
     rsvpSide: "Dadke & Nanke",
     contacts: [
       {
-        name: "Richa & Vijay Arora",
+        name: "Vijay Arora",
         phone: "+91 97110 50005",
         rawPhone: "9711050005",
       },

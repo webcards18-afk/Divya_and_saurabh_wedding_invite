@@ -56,7 +56,7 @@ export function SectionClosingRSVP() {
           isIntersectingRef.current = true;
           // Play once only
           if (!hasCompletedOnceRef.current) {
-            vid.play().catch(() => {});
+            vid.play().catch(() => { });
           }
         } else {
           isIntersectingRef.current = false;

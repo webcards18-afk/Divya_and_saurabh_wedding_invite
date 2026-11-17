@@ -87,8 +87,8 @@ function Index() {
       {/* Rose Petals Showering Gracefully Across Entire Website — subtle, elegant quantity */}
       <RosePetalsShower active={hasFinishedIntro} count={16} />
 
-      {/* Floating Section Navigation */}
-      <Navigation />
+      {/* Floating Section Navigation (removed on 1-vid, visible only after scrolling into celebration events) */}
+      <Navigation hasFinishedIntro={hasFinishedIntro} />
 
       <main className="w-full flex flex-col">
         {/* 1. Website Opening – 1-vid with "Tap to Open Invitation" (strictly muted, plays once, never disappears, with Scroll Down prompt) */}

@@ -79,7 +79,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" },
       { title: "Wedding Invitation | Divya & Saurabh" },
       { name: "description", content: "Celebrate the royal wedding ceremony and festivities of Divya & Saurabh." },
-      { name: "author", content: "Prashantharts" },
+      { name: "author", content: "Prashantarts" },
       { property: "og:title", content: "Wedding Invitation | Divya & Saurabh" },
       { property: "og:description", content: "Celebrate the royal wedding ceremony and festivities of Divya & Saurabh." },
       { property: "og:type", content: "website" },

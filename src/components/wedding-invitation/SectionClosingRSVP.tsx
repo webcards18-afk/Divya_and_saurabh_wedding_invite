@@ -210,7 +210,7 @@ export function SectionClosingRSVP() {
         <div className="w-16 h-[1px] bg-[#d4af37]/40 mb-4" />
 
         <p className="text-[11px] text-[#e8c07d]/60 font-body tracking-wider">
-          Created with love by @prashantharts
+          Created with love by @prashantarts
         </p>
       </footer>
     </section>

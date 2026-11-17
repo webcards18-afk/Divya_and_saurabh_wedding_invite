@@ -82,12 +82,32 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "author", content: "Prashantarts" },
       { property: "og:title", content: "Wedding Invitation | Divya & Saurabh" },
       { property: "og:description", content: "Celebrate the royal wedding ceremony and festivities of Divya & Saurabh." },
+      { property: "og:image", content: "/image.jpeg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Wedding Invitation | Divya & Saurabh" },
       { name: "twitter:description", content: "Celebrate the royal wedding ceremony and festivities of Divya & Saurabh." },
+      { name: "twitter:image", content: "/image.jpeg" },
     ],
     links: [
+      {
+        rel: "icon",
+        type: "image/png",
+        href: "/favicon.png",
+      },
+      {
+        rel: "icon",
+        type: "image/jpeg",
+        href: "/image.jpeg",
+      },
+      {
+        rel: "shortcut icon",
+        href: "/favicon.ico",
+      },
+      {
+        rel: "apple-touch-icon",
+        href: "/apple-touch-icon.png",
+      },
       {
         rel: "preconnect",
         href: "https://fonts.googleapis.com",

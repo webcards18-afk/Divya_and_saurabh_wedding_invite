@@ -130,9 +130,8 @@ export function SectionClosingRSVP() {
             onCanPlay={() => setIsVideoReady(true)}
             onEnded={handleVideoEnded}
             onTimeUpdate={handleTimeUpdate}
-            className={`w-full h-full object-cover block mx-auto pointer-events-none transition-opacity duration-500 ${
-              isVideoReady ? "opacity-100" : "opacity-0"
-            }`}
+            className={`w-full h-full object-cover block mx-auto pointer-events-none transition-opacity duration-500 ${isVideoReady ? "opacity-100" : "opacity-0"
+              }`}
           />
         )}
 

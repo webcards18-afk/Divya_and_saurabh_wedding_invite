@@ -41,7 +41,7 @@ export const weddingData = {
       note: "Followed by Lunch",
       venueName: "Shyam Niwas",
       venueAddress: "B1/257, UGF, Paschim Vihar, New Delhi – 110063",
-      mapUrl: "https://www.google.com/maps/search/?api=1&query=Shyam+Niwas+B1%2F257+Paschim+Vihar+New+Delhi+110063",
+      mapUrl: "https://maps.app.goo.gl/6cShUkH8pry7p7ou7?g_st=ac",
       badgeColor: "from-amber-500/20 to-amber-700/30",
     },
     {

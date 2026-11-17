@@ -23,7 +23,7 @@ export const weddingData = {
   // Main Wedding Venue
   mainVenue: "Imperial Garden by Tivoli",
   mainAddress: "GT Karnal Road, Alipur Village, New Delhi – 110036",
-  mainMapUrl: "https://share.google/1WU8JU5LDiNQc5wuv",
+  mainMapUrl: "https://maps.app.goo.gl/hnb9zjWbb91PFhCK6",
 
   // Background Music
   musicUrl: "/music.mp3",
@@ -69,7 +69,7 @@ export const weddingData = {
       note: "Music, henna & celebratory toasts",
       venueName: "Wedding Opera",
       venueAddress: "B-9, Ring Road, Dr. Lohia Industrial Area, Tri Nagar, Delhi – 110035",
-      mapUrl: "https://share.google/I8qk2mB3yIRqEGfev",
+      mapUrl: "https://maps.app.goo.gl/mQjhxvytt9iNPwAj7",
       badgeColor: "from-emerald-600/20 to-teal-800/30",
     },
     {
@@ -83,7 +83,7 @@ export const weddingData = {
       note: "Auspicious turmeric blessings & bridal chooda",
       venueName: "Shyam Niwas",
       venueAddress: "B1/257, UGF, Paschim Vihar, New Delhi – 110063",
-      mapUrl: "https://maps.app.goo.gl/VpsX7qr2E8KNYCQZ7?g_st=ipc",
+      mapUrl: "https://maps.app.goo.gl/6cShUkH8pry7p7ou7?g_st=ac",
       badgeColor: "from-yellow-400/20 to-amber-500/30",
     },
     {
@@ -97,7 +97,7 @@ export const weddingData = {
       note: "Followed by Dinner",
       venueName: "Imperial Garden by Tivoli",
       venueAddress: "GT Karnal Road, Alipur Village, New Delhi – 110036",
-      mapUrl: "https://share.google/1WU8JU5LDiNQc5wuv",
+      mapUrl: "https://maps.app.goo.gl/hnb9zjWbb91PFhCK6",
       badgeColor: "from-rose-600/20 to-red-800/30",
     },
   ],

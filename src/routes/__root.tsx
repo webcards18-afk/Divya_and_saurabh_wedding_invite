@@ -7,10 +7,22 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { createServerFn } from "@tanstack/react-start";
+import { getRequestHost, getRequestHeader } from "@tanstack/react-start/server";
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+
+export const getSiteOrigin = createServerFn({ method: "GET" }).handler(async () => {
+  try {
+    const host = getRequestHost();
+    const proto = getRequestHeader("x-forwarded-proto") || "https";
+    return `${proto}://${host}`;
+  } catch {
+    return "";
+  }
+});
 
 function NotFoundComponent() {
   return (
@@ -73,60 +85,83 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" },
-      { title: "Wedding Invitation | Divya & Saurabh" },
-      { name: "description", content: "Celebrate the royal wedding ceremony and festivities of Divya & Saurabh." },
-      { name: "author", content: "Prashantarts" },
-      { property: "og:title", content: "Wedding Invitation | Divya & Saurabh" },
-      { property: "og:description", content: "Celebrate the royal wedding ceremony and festivities of Divya & Saurabh." },
-      { property: "og:image", content: "/image.jpeg" },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Wedding Invitation | Divya & Saurabh" },
-      { name: "twitter:description", content: "Celebrate the royal wedding ceremony and festivities of Divya & Saurabh." },
-      { name: "twitter:image", content: "/image.jpeg" },
-    ],
-    links: [
-      {
-        rel: "icon",
-        type: "image/png",
-        href: "/favicon.png",
-      },
-      {
-        rel: "icon",
-        type: "image/jpeg",
-        href: "/image.jpeg",
-      },
-      {
-        rel: "shortcut icon",
-        href: "/favicon.ico",
-      },
-      {
-        rel: "apple-touch-icon",
-        href: "/apple-touch-icon.png",
-      },
-      {
-        rel: "preconnect",
-        href: "https://fonts.googleapis.com",
-      },
-      {
-        rel: "preconnect",
-        href: "https://fonts.gstatic.com",
-        crossOrigin: "anonymous",
-      },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Jost:wght@300;400;500;600;700&display=swap",
-      },
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
-    ],
-  }),
+  loader: async () => {
+    try {
+      const origin = await getSiteOrigin();
+      return { origin };
+    } catch {
+      return { origin: "" };
+    }
+  },
+  head: ({ loaderData }) => {
+    const origin = (loaderData as { origin?: string } | undefined)?.origin || "";
+    const previewUrl = origin ? `${origin}/whatsapp-preview.jpg` : "/whatsapp-preview.jpg";
+    return {
+      meta: [
+        { charSet: "utf-8" },
+        { name: "viewport", content: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" },
+        { title: "Wedding Invitation | Divya & Saurabh" },
+        { name: "description", content: "Celebrate the royal wedding ceremony and festivities of Divya & Saurabh." },
+        { name: "author", content: "Prashantarts" },
+        { property: "og:title", content: "Wedding Invitation | Divya & Saurabh" },
+        { property: "og:description", content: "Celebrate the royal wedding ceremony and festivities of Divya & Saurabh." },
+        { property: "og:image", content: previewUrl },
+        { property: "og:image:secure_url", content: previewUrl },
+        { property: "og:image:type", content: "image/jpeg" },
+        { property: "og:image:width", content: "600" },
+        { property: "og:image:height", content: "600" },
+        { property: "og:image:alt", content: "Divya & Saurabh Royal Wedding Invitation" },
+        { property: "og:type", content: "website" },
+        { property: "og:site_name", content: "Divya & Saurabh Wedding" },
+        { itemprop: "image", content: previewUrl },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: "Wedding Invitation | Divya & Saurabh" },
+        { name: "twitter:description", content: "Celebrate the royal wedding ceremony and festivities of Divya & Saurabh." },
+        { name: "twitter:image", content: previewUrl },
+      ],
+      links: [
+        {
+          rel: "image_src",
+          href: previewUrl,
+        },
+        {
+          rel: "icon",
+          type: "image/png",
+          href: "/favicon.png",
+        },
+        {
+          rel: "icon",
+          type: "image/jpeg",
+          href: "/image.jpeg",
+        },
+        {
+          rel: "shortcut icon",
+          href: "/favicon.ico",
+        },
+        {
+          rel: "apple-touch-icon",
+          href: "/apple-touch-icon.png",
+        },
+        {
+          rel: "preconnect",
+          href: "https://fonts.googleapis.com",
+        },
+        {
+          rel: "preconnect",
+          href: "https://fonts.gstatic.com",
+          crossOrigin: "anonymous",
+        },
+        {
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Jost:wght@300;400;500;600;700&display=swap",
+        },
+        {
+          rel: "stylesheet",
+          href: appCss,
+        },
+      ],
+    };
+  },
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
@@ -135,9 +170,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" prefix="og: https://ogp.me/ns#">
       <head>
         <HeadContent />
+        <link rel="image_src" href="/whatsapp-preview.jpg" />
+        <meta itemprop="image" content="/whatsapp-preview.jpg" />
       </head>
       <body>
         {children}

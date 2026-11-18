@@ -203,7 +203,7 @@ export function SectionClosingRSVP() {
           Divya & Saurabh
         </h3>
         <p className="font-serif text-xs uppercase tracking-[0.25em] text-[#e8c07d]/80 mb-4">
-          With Love & Blessings from Arora & Banga Families
+          With Love & Blessings from Arora Family
         </p>
 
         <div className="w-16 h-[1px] bg-[#d4af37]/40 mb-4" />
